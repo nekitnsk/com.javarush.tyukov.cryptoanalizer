@@ -21,15 +21,21 @@ public class FileHandler {
 
         boolean isFileTypeTxt = false;
 
-        try {
-            String mimeType = Files.probeContentType(path);
 
-            if(mimeType == "text/plain"){
+            String fileName = path.getFileName().toString();
+
+            int lastDotIndex = fileName.lastIndexOf('.');
+
+            // Проверка на наличие точки в имени файла
+            String fileExt = "";
+            if (lastDotIndex > 0 && lastDotIndex < fileName.length() - 1) {
+                fileExt = fileName.substring(lastDotIndex + 1);
+            }
+
+            if(fileExt.equals("txt")){
                 isFileTypeTxt = true;
             }
-        }catch (IOException e){
-            System.out.println("Ошибка доступа к файлу");
-        }
+
 
 
         return isFileTypeTxt;

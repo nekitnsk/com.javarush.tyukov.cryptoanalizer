@@ -17,11 +17,6 @@ public class Main {
             Path inputFilePath = menu.chooseInputFilePath(); //выводим меню ввода пути файла
             Path outputFilePath = menu.chooseOutputFilePath(); // выводим меню ввода выходного файла
 
-
-
-
-
-
         } else if (chooseAction == 2) { //если выбрано дешифрование
             key = menu.chooseKey();
 
