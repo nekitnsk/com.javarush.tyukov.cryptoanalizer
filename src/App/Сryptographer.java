@@ -12,8 +12,8 @@ public class Сryptographer {
     protected void encrypt(int key, Path path, Path pathOut, char[] alphabet) {
 
         try (BufferedReader reader = new BufferedReader(new FileReader(path.toString()));
-                BufferedWriter writer = new BufferedWriter(new FileWriter(pathOut.toString()))
-                ) {
+             BufferedWriter writer = new BufferedWriter(new FileWriter(pathOut.toString()))
+        ) {
 
             char[] chars = new char[50];
             char[] encryptChars = new char[50];
@@ -30,6 +30,13 @@ public class Сryptographer {
                 for (int i = 0; i < chars.length; i++) {
 
                     if (chars[i] != '\0') { //исключим пустые символы
+
+                        boolean isUpperCase = false;
+
+                        if (Character.isLetter(chars[i]) && Character.isUpperCase(chars[i])) {
+                            isUpperCase = true;
+                        }
+
                         char findChar = Character.isLetter(chars[i]) ? Character.toLowerCase(chars[i]) : chars[i]; //если буква, приводим к нижнему регистру, если символ то оставляем
 
                         if (charsMap.containsKey(findChar)) { // ищем букву в Hashmap
@@ -41,7 +48,11 @@ public class Сryptographer {
                                 newPosition = newPosition - alphabet.length;
                             }
 
-                            encryptChars[i] = alphabet[newPosition];
+                            if (isUpperCase) {
+                                encryptChars[i] = Character.toUpperCase(alphabet[newPosition]);
+                            } else {
+                                encryptChars[i] = alphabet[newPosition];
+                            }
                         } else {
                             encryptChars[i] = chars[i];
                         }
@@ -55,8 +66,8 @@ public class Сryptographer {
 
             writer.flush();
 
-            System.out.println(chars);
-            System.out.println(encryptChars);
+//            System.out.println(chars);
+//            System.out.println(encryptChars);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -85,7 +96,15 @@ public class Сryptographer {
                 for (int i = 0; i < chars.length; i++) {
 
                     if (chars[i] != '\0') { //исключим пустые символы
+
+
+                        boolean isUpperCase = false;
+
+                        if (Character.isLetter(chars[i]) && Character.isUpperCase(chars[i])) {
+                            isUpperCase = true;
+                        }
                         char findChar = Character.isLetter(chars[i]) ? Character.toLowerCase(chars[i]) : chars[i]; //если буква, приводим к нижнему регистру, если символ то оставляем
+
 
                         if (charsMap.containsKey(findChar)) { // ищем букву в Hashmap
 
@@ -95,8 +114,11 @@ public class Сryptographer {
                             if (newPosition < 0) {
                                 newPosition = alphabet.length + newPosition;
                             }
-
-                            decryptChars[i] = alphabet[newPosition];
+                            if (isUpperCase) {
+                                decryptChars[i] = Character.toUpperCase(alphabet[newPosition]);
+                            } else {
+                                decryptChars[i] = alphabet[newPosition];
+                            }
                         } else {
                             decryptChars[i] = chars[i];
                         }
@@ -110,8 +132,8 @@ public class Сryptographer {
 
             writer.flush();
 
-            System.out.println(chars);
-            System.out.println(decryptChars);
+//            System.out.println(chars);
+//            System.out.println(decryptChars);
 
         } catch (IOException e) {
             e.printStackTrace();
